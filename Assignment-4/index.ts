@@ -26,9 +26,10 @@ let student5:Students={
     address:address5
 }
 function updateStudent(student:Students, update:ChangeStudent):Students{
-    console.log("anuu")
+    
     return {...student, ...update};
 }
+console.log("anuu")
 let result5= updateStudent(student5,changin);
 console.log("details");
 console.log(result5);
