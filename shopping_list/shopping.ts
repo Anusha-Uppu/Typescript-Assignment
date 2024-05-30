@@ -1,16 +1,16 @@
 class item{
-    name:String |any;
+    name:string;
     done_status:boolean;
     delete_status:boolean;
     display:boolean;
 
-    constructor(name:String, done_status:boolean, delete_status:boolean, display:boolean){
+    constructor(name:string, done_status:boolean, delete_status:boolean, display:boolean){
         this.name=name;
         this.delete_status=delete_status;
         this.done_status=done_status;
         this.display=display;
     }
-    getName=():String =>{
+    getName=():string =>{
         return this.name;
     }
     SetDoneStatus=(setvalue:boolean):void=>{
@@ -24,13 +24,13 @@ class item{
     }
  }
 let document1:Document=document;
-type count=number| any
-let total:count=document1.getElementById('total');
-let donet:count=document.getElementById('done');
-let undonet:count=document.getElementById('undone');
-let list_items:any=document.getElementById('list-items');
+type count=number
+let total=document1.getElementById('total')as HTMLElement;
+let donet=document.getElementById('done') as HTMLElement;
+let undonet=document.getElementById('undone')as HTMLElement;
+let list_items=document.getElementById('list-items')as HTMLElement;
 let list_of_items:item[]=[];
-var mytext:any=document.getElementById('input-text');
+var mytext=document.getElementById('input-text') as HTMLInputElement;
 mytext.addEventListener('keydown',(event:KeyboardEvent)=>{
     event.preventDefault;
     if(event.key === 'Enter' && !(mytext.value.trim()==='')){
@@ -47,10 +47,19 @@ function findCount(array:item[]):number{
     }
     return c;
 }
+function findTotalcount(array:item[]):number{
+    let c:number=0;
+    for(const data of array){
+        if(!data.delete_status){
+            c++;
+        }
+    }
+    return c;
+}
 function creating(element:item,index:number):HTMLElement{
-    var div:any=document.createElement('li');
-    var cross:any=document.createElement('label');
-    var label:any=document.createElement('label');
+    var div:HTMLElement=document.createElement('li');
+    var cross:HTMLElement=document.createElement('label');
+    var label:HTMLElement=document.createElement('label');
     label.innerHTML=element.getName();
     cross.innerHTML='X';
     cross.className='cross';
@@ -59,7 +68,7 @@ function creating(element:item,index:number):HTMLElement{
     div.appendChild(cross);
     element.display=true;
     div.className='div';
-    total.innerHTML='Total:'+(count+1);
+    total.innerHTML='Total:'+(findTotalcount(list_of_items));
     console.log(findCount(list_of_items));
     undonet.innerHTML="Undone:"+(findCount(list_of_items));
     cross.addEventListener('click',()=>{

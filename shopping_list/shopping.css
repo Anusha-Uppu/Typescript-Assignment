@@ -34,19 +34,21 @@ input{
     width: 10px;
     text-align: left;
 }
-.list-items li{
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   width: 90%;
-   margin-inline:auto;
-   height: 50px;
-   border: 2px solid grey;
-   margin-bottom: 20px;
-}
+/* .list-items li{
+  
+
+} */
 .div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin-inline:auto;
+    height: 50px;
     background-color: grey;
     color: white;
+    border: 2px solid grey;
+    margin-bottom: 20px;
 }
 .done{
     display: flex;
@@ -55,7 +57,7 @@ input{
     width: 90%;
    margin-inline:auto;
    height: 50px;
-   border: 2px solid grey;
+   border: 2px solid green;
    margin-bottom: 20px;
    background-color: green;
    color: white;
@@ -64,9 +66,9 @@ input{
 button{
     height: 30px;
     width: 100px;
-    background-color: plum;
+    background-color: yellow;
     border-radius: 3px;
-    border-color: plum;
-    box-shadow: 2px solid pink;
+    border-color:yellow;
+    box-shadow: 2px solid yellow;
     margin-bottom: 10px;
 }

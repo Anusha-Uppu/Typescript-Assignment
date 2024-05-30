@@ -44,6 +44,16 @@ function findCount(array) {
     }
     return c;
 }
+function findTotalcount(array) {
+    var c = 0;
+    for (var _i = 0, array_2 = array; _i < array_2.length; _i++) {
+        var data = array_2[_i];
+        if (!data.delete_status) {
+            c++;
+        }
+    }
+    return c;
+}
 function creating(element, index) {
     var div = document.createElement('li');
     var cross = document.createElement('label');
@@ -56,7 +66,7 @@ function creating(element, index) {
     div.appendChild(cross);
     element.display = true;
     div.className = 'div';
-    total.innerHTML = 'Total:' + (count + 1);
+    total.innerHTML = 'Total:' + (findTotalcount(list_of_items));
     console.log(findCount(list_of_items));
     undonet.innerHTML = "Undone:" + (findCount(list_of_items));
     cross.addEventListener('click', function () {
