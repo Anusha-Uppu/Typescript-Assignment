@@ -44,22 +44,41 @@ type Employee={
     age:number;
     leader?:Employee;
 }
+let employee3:Employee={
+    name:"Ranga",
+    age:41,
+}
 let employee1:Employee={
     name:"anusha",
     age:21,
+    leader:employee3,
 }
 let employee2:Employee={
     name:"keerthana",
     age:21,
     leader:employee1
 }
-
-let employeearray:Employee[]=[employee1, employee2];
+function searchLead(array:Employee[],employee:Employee): boolean{
+    for(const data of array){
+        if(data.leader && employee.name===data.leader.name){
+            return true;
+        }
+     
+    }
+    return false;
+}
+let employeearray:Employee[]=[employee1, employee2,employee3];
 for (const data of employeearray){
-    if(data['leader']){
-        console.log(data.name+"is not a leader");
+    if(!data['leader']){
+        console.log(data.name+"is  a leader");
     }
     else{
-        console.log(data.name+"is a leader");
+        if(searchLead(employeearray, data)){
+            console.log(data.name+"is a leader");
+        }
+        else{
+            console.log(data.name+"is not a leader");
+        }
+        
     }
 }

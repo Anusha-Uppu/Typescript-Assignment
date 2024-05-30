@@ -13,7 +13,16 @@ class item{
     getName=():String =>{
         return this.name;
     }
-}
+    SetDoneStatus=(setvalue:boolean):void=>{
+        this.done_status=setvalue;
+    }
+    setDeleteStatus=(setvalue:boolean):void =>{
+        this.delete_status=setvalue;
+    }
+    setDisplay=(setvalue:boolean):void =>{
+        this.display=setvalue;
+    }
+ }
 let document1:Document=document;
 type count=number| any
 let total:count=document1.getElementById('total');
@@ -21,7 +30,7 @@ let donet:count=document.getElementById('done');
 let undonet:count=document.getElementById('undone');
 let list_items:any=document.getElementById('list-items');
 let list_of_items:item[]=[];
-var mytext=document.getElementById('input-text') as HTMLInputElement;
+var mytext:any=document.getElementById('input-text');
 mytext.addEventListener('keydown',(event:KeyboardEvent)=>{
     event.preventDefault;
     if(event.key === 'Enter' && !(mytext.value.trim()==='')){
@@ -29,12 +38,49 @@ mytext.addEventListener('keydown',(event:KeyboardEvent)=>{
         additem();
     }
 });
+function findCount(array:item[]):number{
+    let c:number=0;
+    for(const data of array){
+        if(!data.done_status){
+            c++;
+        }
+    }
+    return c;
+}
+function creating(element:item,index:number):HTMLElement{
+    var div:any=document.createElement('li');
+    var cross:any=document.createElement('label');
+    var label:any=document.createElement('label');
+    label.innerHTML=element.getName();
+    cross.innerHTML='X';
+    cross.className='cross';
+    label.className='label';
+    div.appendChild(label);
+    div.appendChild(cross);
+    element.display=true;
+    div.className='div';
+    total.innerHTML='Total:'+(count+1);
+    console.log(findCount(list_of_items));
+    undonet.innerHTML="Undone:"+(findCount(list_of_items));
+    cross.addEventListener('click',()=>{
+        deletee(index);
+    })
+    div.addEventListener('click',()=>{
+        console.log("render lo");
+        toggle(index);
+    })
+    list_items.appendChild(div);
+    return div;
+}
 var checkbox:any=document.getElementById('checkbox');
+let count:number=0;
 function additem():void{
     var items=new item(mytext.value,false,false,false);
     list_of_items.push(items);
     mytext.value='';
-    render();
+    // render();
+    creating(items,count);
+    count++;
 }
 function render():void{
     list_items.innerHTML=" ";
@@ -45,13 +91,7 @@ function render():void{
     undonet.innerHTML="Undone"+0;
     list_of_items.forEach((element:item,index:number)=>{
         if(!element.delete_status){
-            var div:any=document.createElement('li');
-            var cross:any=document.createElement('label');
-            var label:any=document.createElement('label');
-            label.innerHTML=element.getName();
-            cross.innerHTML='X';
-            cross.className='cross';
-            label.className='label';
+            var div=creating(element,index);
             if(element.done_status){
                 div.className='done';
                 done++;
@@ -63,17 +103,7 @@ function render():void{
                 div.className='div';
                 undone++;
             }
-
-            div.appendChild(label);
-            div.appendChild(cross);
             element.display=true;
-            div.addEventListener('click',()=>{
-                toggle(index);
-            })
-            cross.addEventListener('click',()=>{
-                deletee(index);
-            })
-            list_items.appendChild(div);
             total.innerHTML="Total"+(done+undone);
             donet.innerHTML="Done"+done;
             undonet.innerHTML="Undone"+undone;
@@ -82,13 +112,18 @@ function render():void{
 
 }
 function toggle(index:number):void{
+    console.log('ochhina');
     list_of_items[index].done_status=!list_of_items[index].done_status;
-    list_of_items[index].display=false;
+    // list_of_items[index].SetDoneStatus(!list_of_items[index].done_status);
+    // list_of_items[index].display=false;
+    list_of_items[index].setDisplay(false);
     render();
 }
 function deletee(index:number):void{
-    list_of_items[index].delete_status=true;
-    list_of_items[index].display=false;
+    // list_of_items[index].delete_status=true;
+    list_of_items[index].setDeleteStatus(true);
+    // list_of_items[index].display=false;
+    list_of_items[index].setDisplay(false);
     render();
     if(list_items.innerHTML === ''){
         total.innerHTML='total'+0;
