@@ -63,15 +63,21 @@ let example2:newInput={
 
 namespace newExample{
     let result2:string=';'
-  export  function printing<T extends newInput | addres>(p:T){
-         for(let k in p){
-            result2+=k+":";
-            if(k == 'address'){
-                console.log(p[k]);
+   
+  export  function printing<T extends Object>(p:T){
+    let k: keyof typeof p;
+    // console.log(k);
+         for( k in p){
+            result2+= String(k)+":";
+            if(typeof p[k] === 'object'){
+                console.log("yes\n"+typeof k);
+                console.log(typeof p[k]);
+                let add3=typeof p[k];
                 // let add2:addres=p[k];
-                newExample.printing<addres>(p[k] as addres);
+                newExample.printing<typeof add3>(p[k] as typeof add3);
             }
             else{
+                console.log("no\n"+typeof p[k]+" "+String(k));
                 result2+=p[k]+", "
             }
             
@@ -79,4 +85,18 @@ namespace newExample{
          console.log(result2);
     }
 }
-newExample.printing(example2);
+newExample.printing(example2);              
+// function calculateTax(amount:number,year:number=2023):number{
+//     if(year<2023)
+//        return amount*2.2;
+//     else
+//        return amount*3.3;
+//  }
+//  let result6=calculateTax(10000);
+//  console.log(result6);
+//  let anusha:combinedType={
+//     name:"Anusha",
+//     age:21,
+//     isHuman:true,
+//  }
+//  console.log(anusha.address?.city);
